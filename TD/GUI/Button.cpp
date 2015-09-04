@@ -68,7 +68,7 @@ void Button::draw()
 
 	glLineWidth(1);
 	/*
-	Calculate x and y roe the text string in order to center it
+	Calculate x and y coords the text string in order to center it
 	*/
 	int font_x = x + (width - glutBitmapLength(GLUT_BITMAP_8_BY_13, (const unsigned char*)label.data())) / 2;
 	int font_y = y + (height + 10) / 2;
@@ -78,9 +78,8 @@ void Button::draw()
 	}
 
 	glColor3f(1, 1, 1);
-	glRasterPos2i(font_x, font_y);
-	for (char c : label)
-		glutBitmapCharacter(GLUT_BITMAP_8_BY_13, c);
+	glRasterPos2f(font_x, font_y);
+	glutBitmapString(GLUT_BITMAP_8_BY_13, (const unsigned char*)label.data());
 }
 
 bool Button::clickTest(int x, int y)

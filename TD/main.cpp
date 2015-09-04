@@ -4,15 +4,20 @@ GameWorld world;
 
 void Display()
 {
+	glClear(GL_COLOR_BUFFER_BIT);
+	glPushMatrix();
+
 	world.update();
 	world.draw();
+
+	glPopMatrix();
+	glutSwapBuffers();
 }
 
 void Update(int a)
 {
-	world.update();
-	world.draw();
-	glutTimerFunc(60, Update, 0);
+	glutPostRedisplay();
+	glutTimerFunc(20, Update, 0);
 }
 
 void MouseHandler(int button, int state, int x, int y)
@@ -58,7 +63,7 @@ int main(int argc, char **argv)
 	/*
 	Create window
 	*/
-	glutInitDisplayMode(GLUT_RGBA);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	glutInitWindowPosition(0, 0);
 	glutInitWindowSize(world.getWidth(), world.getHeight());
 	glutCreateWindow("Tower Defence");

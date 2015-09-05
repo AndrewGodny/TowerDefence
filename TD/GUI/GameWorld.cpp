@@ -18,6 +18,8 @@ void GameWorld::init(int width, int height)
 	menu_height = 30;
 	active_button = -1;
 
+	map.init(width, height);
+
 	int button_w = width / 10;
 	int button_h = 25;
 	buttons.push_back(Button(1, width - button_w - 10, 2, button_w, button_h, "Tower 1", [this]() { active_button = 0; }));
@@ -29,7 +31,7 @@ void GameWorld::init(int width, int height)
 	goal.y = height / 2;
 	goal_radius = 10;
 
-	monsters.push_back(BaseMonster::generateMonster((BaseMonster::MonsterTypes) 0, 20, height / 2));
+	//monsters.push_back(BaseMonster::generateMonster((BaseMonster::MonsterTypes) 0, 20, height / 2));
 }
 
 int GameWorld::getWidth()
@@ -82,6 +84,11 @@ void GameWorld::mouseLeftClickPress(int x, int y)
 		{
 			try {
 				auto tower = BaseTower::generaeteTower((BaseTower::TowerTypes)active_button, x, y);
+				double test = Point::distance(tower->getPosition(), goal);
+				if (x - tower->getRadius() < 0 || x + tower->getRadius() > width) return;
+				if (y - tower->getRadius() < 0 || y + tower->getRadius() > height) return;
+				if (Point::distance(tower->getPosition(), goal) > width * 0.75) return;
+				if (Point::distance(goal, tower->getPosition()) < tower->getRadius() + 30) return;
 				double min = width * height;
 				int radius = 5;
 				for (auto t : towers)
@@ -91,8 +98,11 @@ void GameWorld::mouseLeftClickPress(int x, int y)
 						min = dist; radius = t->getRadius();
 					}
 				}
-				if (tower->getRadius() + radius + 10 < min)
+				if (tower->getRadius() + radius + 30 < min)
+				{
 					towers.push_back(tower);
+					map.addObstacle(tower->getPosition(), tower->getRadius());
+				}
 			}
 			catch (std::exception& e)
 			{

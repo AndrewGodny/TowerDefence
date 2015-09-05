@@ -36,6 +36,9 @@
     <ClCompile Include="Game\SimpleMonster.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
+    <ClCompile Include="Game\PathFinder.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GUI\GameWorld.h">
@@ -57,6 +60,9 @@
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="Game\SimpleMonster.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\PathFinder.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>

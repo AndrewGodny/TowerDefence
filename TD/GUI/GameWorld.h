@@ -7,6 +7,7 @@
 #include "Button.h"
 #include "../Game/BaseTower.h"
 #include "../Game/BaseMonster.h"
+#include "../Game/PathFinder.h"
 
 class GameWorld
 {
@@ -44,5 +45,6 @@ private:
 	std::vector<Button> buttons;
 	std::list<std::shared_ptr<BaseTower>> towers;
 	std::list<std::shared_ptr<BaseMonster>> monsters;
+	PathFinder map;
 };
 

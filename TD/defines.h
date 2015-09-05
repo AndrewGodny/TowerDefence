@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #define M_PI 3.14159265358979323846
 
 struct Point
@@ -10,3 +12,5 @@ struct Point
 		return sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 	}
 };
+
+typedef std::vector<Point> Path;

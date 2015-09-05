@@ -2,7 +2,12 @@
 #include <GL\freeglut.h>
 
 
-Button::Button(int x, int y, int width, int height, std::string name, ButtonCallback bc) : x(x), y(y), width(width), height(height), pressed(false), label(name), callback(bc)
+Button::Button(int id, int x, int y, int width, int height, std::string name, ButtonCallback bc) : 
+	id(id),
+	x(x), y(y), 
+	width(width), height(height), 
+	pressed(false), label(name), 
+	callback(bc)
 {
 }
 
@@ -13,7 +18,10 @@ Button::~Button()
 
 void Button::press(Button & b, int x, int y)
 {
-	if (b.clickTest(x, y)) b.pressed = true;
+	if (b.clickTest(x, y))
+	{
+		b.pressed = true;
+	}
 }
 
 void Button::release(Button & b, int x, int y)

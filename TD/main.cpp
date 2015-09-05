@@ -27,9 +27,10 @@ void MouseHandler(int button, int state, int x, int y)
 		switch (button)
 		{
 		case GLUT_LEFT_BUTTON:
-			world.mousePress(x, y);
+			world.mouseLeftClickPress(x, y);
 			break;
 		case GLUT_RIGHT_BUTTON:
+			world.mouseRightClickPress(x, y);
 			break;
 		default:
 			break;
@@ -40,7 +41,7 @@ void MouseHandler(int button, int state, int x, int y)
 		switch (button)
 		{
 		case GLUT_LEFT_BUTTON:
-			world.moseRelease(x, y);
+			world.moseLeftClickRelease(x, y);
 			break;
 		case GLUT_RIGHT_BUTTON:
 			break;
@@ -55,7 +56,7 @@ int main(int argc, char **argv)
 	/*
 	Set up the world
 	*/
-	world.init(900, 900);
+	world.init(900, 700);
 	/*
 	Init OpenGL
 	*/

@@ -2,8 +2,11 @@
 
 #include <GL\freeglut.h>
 #include <vector>
+#include <list>
 
 #include "Button.h"
+#include "../Game/BaseTower.h"
+#include "../Game/BaseMonster.h"
 
 class GameWorld
 {
@@ -18,15 +21,28 @@ public:
 	void update();
 	void draw();
 
-	void mousePress(int x, int y);
-	void moseRelease(int x, int y);
+	void mouseLeftClickPress(int x, int y);
+	void moseLeftClickRelease(int x, int y);
+	void mouseRightClickPress(int x, int y);
 
 private:
 	void drawMenu();
 
 private:
+	/*
+	Window params and some GUI consfigs
+	*/
 	int width;
 	int height;
+	int menu_height;
+
+	Point goal;
+	int goal_radius;
+
+	int active_button;
+	
 	std::vector<Button> buttons;
+	std::list<std::shared_ptr<BaseTower>> towers;
+	std::list<std::shared_ptr<BaseMonster>> monsters;
 };
 

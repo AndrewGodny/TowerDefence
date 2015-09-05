@@ -1,13 +1,14 @@
 #pragma once
 
 #include <string>
+#include <functional>
 
-typedef void(*ButtonCallback)();
+typedef std::function<void(void)> ButtonCallback;
 
 class Button
 {
 public:
-	Button(int x, int y, int width, int height, std::string name, ButtonCallback bc);
+	Button(int id, int x, int y, int width, int height, std::string name, ButtonCallback bc);
 	~Button();
 
 	static void press(Button &b, int x, int y);
@@ -19,6 +20,7 @@ private:
 	bool clickTest(int x, int y);
 
 private:
+	int id;
 	int x, y;
 	int width, height;
 	bool pressed;

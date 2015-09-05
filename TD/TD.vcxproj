@@ -142,18 +142,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game\BaseMonster.cpp" />
     <ClCompile Include="Game\BaseTower.cpp" />
+    <ClCompile Include="Game\SimpleMonster.cpp" />
+    <ClCompile Include="Game\SimpleTower.cpp" />
     <ClCompile Include="GUI\Button.cpp" />
     <ClCompile Include="GUI\GameWorld.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="defines.h" />
+    <ClInclude Include="Game\BaseMonster.h" />
     <ClInclude Include="Game\BaseTower.h" />
+    <ClInclude Include="Game\SimpleMonster.h" />
+    <ClInclude Include="Game\SimpleTower.h" />
     <ClInclude Include="GUI\Button.h" />
     <ClInclude Include="GUI\GameWorld.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

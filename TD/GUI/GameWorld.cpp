@@ -18,11 +18,7 @@ void GameWorld::init(int width, int height)
 	std::cout << "Initialize game world params..." << std::endl;
 	this->width = width; this->height = height;
 	menu_height = 30;
-	active_button = -1;
-	money = 300;
-	
-	frame_counter = 0;
-	wave_counter = 0;
+	active_button = -1;	
 	
 	std::cout << "Initialize game menu..." << std::endl;
 	int button_w = width;
@@ -36,10 +32,8 @@ void GameWorld::init(int width, int height)
 	goal_radius = SCALE;
 	goal.x = width * SCALE - goal_radius * 2;
 	goal.y = height * SCALE / 2;
-	
-	std::cout << "Create game map..." << std::endl;
-	map.init(width, height, Point(goal.x / SCALE, goal.y / SCALE));
-	std::cout << "Start game..." << std::endl;
+
+	resetGame();
 }
 
 int GameWorld::getWidth()
@@ -54,8 +48,11 @@ int GameWorld::getHeight()
 
 void GameWorld::update()
 {
+	if (game_lost) return;
+
 	frame_counter++;
 	unsigned int sec = frame_counter / 60;
+
 	if (sec > 0 && frame_counter % 60 == 0 && sec % 10 == 0) createNewWave();
 
 	mapMonsterToTower();
@@ -64,15 +61,19 @@ void GameWorld::update()
 	std::vector<std::list<std::shared_ptr<BaseMonster>>::iterator> to_remove;
 	for (auto it = monsters.begin(); it != monsters.end(); it++)
 	{
-		if ((*it)->isAlive()) (*it)->update();
+		if ((*it)->isAlive())
+		{
+			(*it)->update();
+			if ((*it)->getPosition().x == goal.x && (*it)->getPosition().y == goal.y)
+				game_lost = true;
+		}
 		else
 		{
 			money += (*it)->getCost();
 			to_remove.push_back(it);
 		}
 	}
-	for (auto it : to_remove) monsters.erase(it);
-		
+	for (auto it : to_remove) monsters.erase(it);		
 }
 
 void GameWorld::draw()
@@ -99,6 +100,7 @@ void GameWorld::draw()
 
 void GameWorld::mouseLeftClickPress(int x, int y)
 {
+	if (game_lost) resetGame(); else
 	if(y <= menu_height)
 		for (Button &b : buttons) Button::press(b, x, y);
 	else
@@ -148,6 +150,23 @@ void GameWorld::mouseRightClickPress(int x, int y)
 	active_button = -1;
 }
 
+void GameWorld::resetGame()
+{
+	towers.clear();
+	monsters.clear();
+	map.clear();
+
+	money = 300;
+	game_lost = false;
+
+	frame_counter = 0;
+	wave_counter = 0;
+
+	std::cout << "Create game map..." << std::endl;
+	map.init(width, height, Point(goal.x / SCALE, goal.y / SCALE));
+	std::cout << "Start game..." << std::endl;
+}
+
 void GameWorld::drawMenu()
 {
 	/*
@@ -169,12 +188,24 @@ void GameWorld::drawMenu()
 	/*
 	Write message
 	*/
-	std::string text = "Total time: " + std::to_string(frame_counter / 60) + "; Money: " + std::to_string(money);
+	std::string text = "Total time: " + std::to_string(frame_counter / 60) +
+		"; Money: " + std::to_string(money) +
+		"; Wave: " + std::to_string(wave_counter);
 	int font_x = 20;
 	int font_y = (menu_height + 10) / 2;
 	glColor3f(1, 1, 1);
 	glRasterPos2f(font_x, font_y);
 	glutBitmapString(GLUT_BITMAP_8_BY_13, (const unsigned char*)text.data());
+
+	if (game_lost)
+	{
+		text = "Looooser!!!!! Left click to start new game.";
+		int font_x = (width * SCALE - glutBitmapLength(GLUT_BITMAP_TIMES_ROMAN_24, (const unsigned char*)text.data())) / 2;
+		int font_y = (height * SCALE + 10) / 2;
+		glColor3f(1, 1, 1);
+		glRasterPos2f(font_x, font_y);
+		glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24, (const unsigned char*)text.data());
+	}
 }
 
 void GameWorld::createNewWave()
@@ -200,6 +231,7 @@ void GameWorld::createNewWave()
 				monsters.push_back(monster);
 				created++;
 				std::cout << "\tMonster was created" << std::endl;
+				if (created == amount) break;
 			}
 			else
 			{

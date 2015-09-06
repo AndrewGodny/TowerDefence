@@ -1,30 +1,30 @@
-#include "SimpleTower.h"
+#include "SpokTower.h"
 #include <GL\freeglut.h>
 
 
-SimpleTower::SimpleTower(int x, int y): BaseTower(x, y)
+SpokTower::SpokTower(int x, int y): BaseTower(x, y)
 {
-	range = 100;
+	range = 150;
 	radius = 5;
-	damage = 2;
-	cost = 400;
+	damage = 3;
+	cost = 700;
 }
 
 
-SimpleTower::~SimpleTower()
+SpokTower::~SpokTower()
 {
 }
 
-BaseTower::TowerTypes SimpleTower::getType()
+BaseTower::TowerTypes SpokTower::getType()
 {
-	return TowerTypes::Simple;
+	return Spok;
 }
 
-void SimpleTower::draw()
+void SpokTower::draw()
 {
 	glBegin(GL_QUADS);
 
-	glColor3f(1, 0, 0);
+	glColor3f(183. / 255, 66. / 255, 189. / 255);
 	glVertex2i(position.x - radius, position.y - radius);
 	glVertex2i(position.x + radius, position.y - radius);
 	glVertex2i(position.x + radius, position.y + radius);

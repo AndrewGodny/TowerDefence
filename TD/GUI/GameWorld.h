@@ -27,6 +27,8 @@ public:
 	void mouseRightClickPress(int x, int y);
 
 private:
+	void resetGame();
+
 	void drawMenu();
 
 	void createNewWave();
@@ -46,6 +48,7 @@ private:
 	Point goal;
 	int goal_radius;
 	int money;
+	bool game_lost;
 
 	int active_button;
 	

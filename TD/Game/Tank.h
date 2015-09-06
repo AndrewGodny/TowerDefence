@@ -1,17 +1,16 @@
 #pragma once
 #include "BaseMonster.h"
-
-class SimpleMonster :
+class TankMonster :
 	public BaseMonster
 {
 	friend BaseMonster;
-public:	
-	~SimpleMonster();
+protected:
+	TankMonster(int x, int y);
+
+public:
+	~TankMonster();
 
 	void draw();
 	MonsterTypes getType();
-
-protected:
-	SimpleMonster(int x, int y);
 };
 

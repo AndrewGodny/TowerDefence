@@ -5,12 +5,12 @@
 class BaseMonster
 {
 public:	
-	enum MonsterTypes { Simple, End } types;
+	enum MonsterTypes { Simple, Quick, Tank, End } types;
 	static std::shared_ptr<BaseMonster> generateMonster(MonsterTypes type, int x, int y);
 	
 	virtual ~BaseMonster();
 
-	virtual void update() = 0;
+	void update();
 	virtual void draw() = 0;
 	virtual MonsterTypes getType() = 0;
 

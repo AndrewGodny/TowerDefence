@@ -1,19 +1,17 @@
 #pragma once
 #include "BaseTower.h"
-
-class SimpleTower :
+class HalkTower :
 	public BaseTower
 {
 	friend BaseTower;
+protected:
+	HalkTower(int x, int y);
 
 public:
-	~SimpleTower();
+	~HalkTower();
+
 	TowerTypes getType();
 
 	void draw();
-
-protected:
-	SimpleTower(int x, int y);
-
 };
 

@@ -1,6 +1,7 @@
 #include "BaseMonster.h"
 #include "SimpleMonster.h"
-
+#include "QuickMonster.h"
+#include "Tank.h"
 
 Point BaseMonster::getPosition()
 {
@@ -70,6 +71,10 @@ std::shared_ptr<BaseMonster> BaseMonster::generateMonster(MonsterTypes type, int
 	{
 	case BaseMonster::Simple:
 		return std::shared_ptr<SimpleMonster>(new SimpleMonster(x, y));
+	case BaseMonster::Quick:
+		return std::shared_ptr<QuickMonster>(new QuickMonster(x, y));
+	case BaseMonster::Tank:
+		return std::shared_ptr<TankMonster>(new TankMonster(x, y));
 	default:
 		throw std::exception("Undefined tower type");
 	}
@@ -77,4 +82,15 @@ std::shared_ptr<BaseMonster> BaseMonster::generateMonster(MonsterTypes type, int
 
 BaseMonster::~BaseMonster()
 {
+}
+
+void BaseMonster::update()
+{
+	for (int i = 0; i < speed; i++)
+	{
+		if (i >= path.size()) break;
+		position.x = path[0].x;
+		position.y = path[0].y;
+		path.erase(path.begin());
+	}
 }

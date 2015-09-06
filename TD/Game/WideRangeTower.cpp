@@ -1,30 +1,30 @@
-#include "SimpleTower.h"
+#include "WideRangeTower.h"
 #include <GL\freeglut.h>
 
 
-SimpleTower::SimpleTower(int x, int y): BaseTower(x, y)
+WideRangeTower::WideRangeTower(int x, int y): BaseTower(x, y)
 {
-	range = 100;
+	range = 200;
 	radius = 5;
-	damage = 2;
-	cost = 400;
+	damage = 1;
+	cost = 200;
 }
 
 
-SimpleTower::~SimpleTower()
+WideRangeTower::~WideRangeTower()
 {
 }
 
-BaseTower::TowerTypes SimpleTower::getType()
+BaseTower::TowerTypes WideRangeTower::getType()
 {
-	return TowerTypes::Simple;
+	return WideRange;
 }
 
-void SimpleTower::draw()
+void WideRangeTower::draw()
 {
 	glBegin(GL_QUADS);
 
-	glColor3f(1, 0, 0);
+	glColor3f(66./255, 66./255, 188./255);
 	glVertex2i(position.x - radius, position.y - radius);
 	glVertex2i(position.x + radius, position.y - radius);
 	glVertex2i(position.x + radius, position.y + radius);

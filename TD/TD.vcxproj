@@ -145,9 +145,14 @@
     <ClCompile Include="Game\AStar.cpp" />
     <ClCompile Include="Game\BaseMonster.cpp" />
     <ClCompile Include="Game\BaseTower.cpp" />
+    <ClCompile Include="Game\Halk.cpp" />
     <ClCompile Include="Game\PathFinder.cpp" />
+    <ClCompile Include="Game\QuickMonster.cpp" />
     <ClCompile Include="Game\SimpleMonster.cpp" />
     <ClCompile Include="Game\SimpleTower.cpp" />
+    <ClCompile Include="Game\SpokTower.cpp" />
+    <ClCompile Include="Game\Tank.cpp" />
+    <ClCompile Include="Game\WideRangeTower.cpp" />
     <ClCompile Include="GUI\Button.cpp" />
     <ClCompile Include="GUI\GameWorld.cpp" />
     <ClCompile Include="main.cpp" />
@@ -157,9 +162,14 @@
     <ClInclude Include="Game\AStar.h" />
     <ClInclude Include="Game\BaseMonster.h" />
     <ClInclude Include="Game\BaseTower.h" />
+    <ClInclude Include="Game\Halk.h" />
     <ClInclude Include="Game\PathFinder.h" />
+    <ClInclude Include="Game\QuickMonster.h" />
     <ClInclude Include="Game\SimpleMonster.h" />
     <ClInclude Include="Game\SimpleTower.h" />
+    <ClInclude Include="Game\SpokTower.h" />
+    <ClInclude Include="Game\Tank.h" />
+    <ClInclude Include="Game\WideRangeTower.h" />
     <ClInclude Include="GUI\Button.h" />
     <ClInclude Include="GUI\GameWorld.h" />
   </ItemGroup>

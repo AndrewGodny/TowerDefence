@@ -14,6 +14,8 @@ public:
 
 	Path getPath(Point start);
 
+	void clear();
+
 private:
 	int width, height;
 	Point goal;

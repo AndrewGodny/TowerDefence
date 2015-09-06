@@ -8,12 +8,12 @@
 class BaseTower
 {
 public:
-	enum TowerTypes { Simple };
+	enum TowerTypes { WideRange, Simple, Spok, Halk };
 	static std::shared_ptr<BaseTower> generaeteTower(TowerTypes type, int x, int y);
 
 	virtual ~BaseTower();
 
-	virtual void update() = 0;
+	virtual void update();
 	virtual void draw() = 0;
 	virtual TowerTypes getType() = 0;
 

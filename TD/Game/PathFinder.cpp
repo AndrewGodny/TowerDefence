@@ -29,6 +29,7 @@ void PathFinder::init(int width, int height, Point goal)
 void PathFinder::addObstacle(Point pos, int radius)
 {
 	Path check_points;
+	map[pos.y][pos.x] = true;
 	std::set<std::vector<Path>::iterator> to_remove;
 	for (int i = pos.y - radius; i < pos.y + radius; i++)
 		for (int j = pos.x - radius; j < pos.x + radius; j++)
@@ -44,6 +45,7 @@ void PathFinder::addObstacle(Point pos, int radius)
 				}
 			}
 	for (auto it : to_remove) saved_paths.erase(it);
+	
 }
 
 Path PathFinder::getPath(Point start)
@@ -56,4 +58,11 @@ Path PathFinder::getPath(Point start)
 	std::reverse(p.begin(), p.end());
 	if (!p.empty()) saved_paths.push_back(p);
 	return p;
+}
+
+void PathFinder::clear()
+{
+	map.clear();
+	width = 0;
+	height = 0;
 }

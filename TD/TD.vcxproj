@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game\AStar.cpp" />
     <ClCompile Include="Game\BaseMonster.cpp" />
     <ClCompile Include="Game\BaseTower.cpp" />
     <ClCompile Include="Game\PathFinder.cpp" />
@@ -153,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="defines.h" />
+    <ClInclude Include="Game\AStar.h" />
     <ClInclude Include="Game\BaseMonster.h" />
     <ClInclude Include="Game\BaseTower.h" />
     <ClInclude Include="Game\PathFinder.h" />

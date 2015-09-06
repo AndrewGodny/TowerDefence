@@ -7,7 +7,6 @@ void Display()
 	glClear(GL_COLOR_BUFFER_BIT);
 	glPushMatrix();
 
-	world.update();
 	world.draw();
 
 	glPopMatrix();
@@ -16,8 +15,9 @@ void Display()
 
 void Update(int a)
 {
+	world.update();
 	glutPostRedisplay();
-	glutTimerFunc(20, Update, 0);
+	glutTimerFunc(TIME, Update, 0);
 }
 
 void MouseHandler(int button, int state, int x, int y)
@@ -56,7 +56,9 @@ int main(int argc, char **argv)
 	/*
 	Set up the world
 	*/
-	world.init(900, 700);
+	int WIDTH = 700;
+	int HEIGHT = 500;
+	world.init(WIDTH / SCALE, HEIGHT / SCALE);
 	/*
 	Init OpenGL
 	*/
@@ -66,7 +68,7 @@ int main(int argc, char **argv)
 	*/
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
 	glutInitWindowPosition(0, 0);
-	glutInitWindowSize(world.getWidth(), world.getHeight());
+	glutInitWindowSize(WIDTH, HEIGHT);
 	glutCreateWindow("Tower Defence");
 	/*
 	Configurate window
@@ -74,7 +76,7 @@ int main(int argc, char **argv)
 	glClearColor(0.2, 0.8, 0.4, 1);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	gluOrtho2D(0, world.getWidth(), world.getHeight(), 0);
+	gluOrtho2D(0, WIDTH, HEIGHT, 0);
 
 	glutDisplayFunc(Display);
 	glutTimerFunc(60, Update, 0);

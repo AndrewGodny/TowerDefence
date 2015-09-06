@@ -27,11 +27,21 @@ int BaseTower::getRadius()
 	return radius;
 }
 
+int BaseTower::getCost()
+{
+	return cost;
+}
+
+void BaseTower::giveBastard(std::shared_ptr<BaseMonster> m)
+{
+	bastard = m;
+}
+
 BaseTower::BaseTower(int x, int y)
 {
 	position.x = x; position.y = y;
 	range = 100; radius = 5;
-	damage = 0; reload_time = 0;
+	damage = 0; cost = 0;
 }
 
 BaseTower::~BaseTower()

@@ -3,6 +3,7 @@
 #include <memory>
 
 #include "../defines.h"
+#include "BaseMonster.h"
 
 class BaseTower
 {
@@ -19,6 +20,8 @@ public:
 	Point getPosition();
 	int getRange();
 	int getRadius();
+	int getCost();
+	void giveBastard(std::shared_ptr<BaseMonster> m);
 
 protected:
 	BaseTower(int x, int y);	
@@ -27,6 +30,7 @@ protected:
 	Point position;
 	int range, radius;
 	int damage;
-	int reload_time;
+	int cost;
+	std::shared_ptr<BaseMonster> bastard;
 };
 

@@ -29,6 +29,9 @@ public:
 private:
 	void drawMenu();
 
+	void createNewWave();
+	void mapMonsterToTower();
+
 private:
 	/*
 	Window params and some GUI consfigs
@@ -37,8 +40,12 @@ private:
 	int height;
 	int menu_height;
 
+	unsigned int frame_counter;
+	unsigned int wave_counter;
+
 	Point goal;
 	int goal_radius;
+	int money;
 
 	int active_button;
 	

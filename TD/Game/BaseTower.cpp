@@ -50,7 +50,7 @@ BaseTower::BaseTower(int x, int y)
 {
 	position.x = x; position.y = y;
 	range = 100; radius = 5;
-	damage = 0; cost = 0;
+	damage = 0; cost = 100;
 }
 
 BaseTower::~BaseTower()

@@ -53,13 +53,12 @@ void PathFinder::addObstacle(Point pos, int original_radius)
 							to_remove.insert(p);
 					}
 				}
+				for (auto it : to_remove)
+				{
+					std::cout << "Remove path" << std::endl;
+					saved_paths.erase(it);
+				}
 			}
-	for (auto it : to_remove)
-	{
-		std::cout << "Remove path" << std::endl;
-		saved_paths.erase(it);
-	}
-	
 }
 
 Path PathFinder::getPath(Point start)

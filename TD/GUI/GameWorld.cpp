@@ -164,9 +164,6 @@ void GameWorld::resetGame()
 	std::cout << "Create game map..." << std::endl;
 	map.init(width, height, Point(goal.x, goal.y));
 	std::cout << "Start game..." << std::endl;
-
-	map.getPath(Point(5, goal.y));
-	map.addObstacle(Point(8, goal.y), 5);
 }
 
 void GameWorld::drawMenu()

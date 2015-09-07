@@ -10,9 +10,10 @@ public:
 
 	void init(int width, int height, Point goal);
 
-	void addObstacle(Point pos, int radius);
+	void addObstacle(Point pos, int original_radius);
 
 	Path getPath(Point start);
+	Path adoptPath(const Path& p);
 
 	void clear();
 

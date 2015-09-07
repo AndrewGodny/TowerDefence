@@ -18,20 +18,19 @@ void GameWorld::init(int width, int height)
 	std::cout << "Initialize game world params..." << std::endl;
 	this->width = width; this->height = height;
 	menu_height = 30;
-	active_button = -1;	
 	
 	std::cout << "Initialize game menu..." << std::endl;
-	int button_w = width;
+	int button_w = 70;
 	int button_h = 25;
-	buttons.push_back(Button(1, width * SCALE - button_w - 10, 2, button_w, button_h, "Tower 1", [this]() { active_button = 0; }));
-	buttons.push_back(Button(2, width * SCALE - 2 * (button_w + 10), 2, button_w, button_h, "Tower 2", [this]() { active_button = 1; }));
-	buttons.push_back(Button(3, width * SCALE - 3 * (button_w + 10), 2, button_w, button_h, "Tower 3", [this]() { active_button = 2; }));
-	buttons.push_back(Button(4, width * SCALE - 4 * (button_w + 10), 2, button_w, button_h, "Tower 4", [this]() { active_button = 3; }));
+	buttons.push_back(Button(1, width - button_w - 10, 2, button_w, button_h, "Tower 1", [this]() { active_button = 0; }));
+	buttons.push_back(Button(2, width - 2 * (button_w + 10), 2, button_w, button_h, "Tower 2", [this]() { active_button = 1; }));
+	buttons.push_back(Button(3, width - 3 * (button_w + 10), 2, button_w, button_h, "Tower 3", [this]() { active_button = 2; }));
+	buttons.push_back(Button(4, width - 4 * (button_w + 10), 2, button_w, button_h, "Tower 4", [this]() { active_button = 3; }));
 
 	std::cout << "Create goal point..." << std::endl;
-	goal_radius = SCALE;
-	goal.x = width * SCALE - goal_radius * 2;
-	goal.y = height * SCALE / 2;
+	goal_radius = 10;
+	goal.x = width - goal_radius * 2;
+	goal.y = height / 2;
 
 	resetGame();
 }
@@ -110,9 +109,9 @@ void GameWorld::mouseLeftClickPress(int x, int y)
 			try {
 				auto tower = BaseTower::generaeteTower((BaseTower::TowerTypes)active_button, x, y);
 				double test = Point::distance(tower->getPosition(), goal);
-				if (x - tower->getRadius() < 0 || x + tower->getRadius() > width * SCALE) return;
-				if (y - tower->getRadius() < 0 || y + tower->getRadius() > height * SCALE) return;
-				if (Point::distance(tower->getPosition(), goal) > width * SCALE * 0.75) return;
+				if (x - tower->getRadius() < 0 || x + tower->getRadius() > width) return;
+				if (y - tower->getRadius() < 0 || y + tower->getRadius() > height) return;
+				if (Point::distance(tower->getPosition(), goal) > width * 0.75) return;
 				if (Point::distance(goal, tower->getPosition()) < tower->getRadius() + 30) return;
 				double min = width * height * 100;
 				int radius = 5;
@@ -128,8 +127,7 @@ void GameWorld::mouseLeftClickPress(int x, int y)
 					towers.push_back(tower);
 					money -= tower->getCost();
 					Point ob = tower->getPosition();
-					ob.x /= SCALE; ob.y /= SCALE;
-					map.addObstacle(ob, tower->getRadius() / SCALE);
+					map.addObstacle(ob, tower->getRadius());
 				}
 			}
 			catch (std::exception& e)
@@ -161,10 +159,14 @@ void GameWorld::resetGame()
 
 	frame_counter = 0;
 	wave_counter = 0;
+	active_button = -1;
 
 	std::cout << "Create game map..." << std::endl;
-	map.init(width, height, Point(goal.x / SCALE, goal.y / SCALE));
+	map.init(width, height, Point(goal.x, goal.y));
 	std::cout << "Start game..." << std::endl;
+
+	map.getPath(Point(5, goal.y));
+	map.addObstacle(Point(8, goal.y), 5);
 }
 
 void GameWorld::drawMenu()
@@ -176,8 +178,8 @@ void GameWorld::drawMenu()
 
 	glColor3f(0.2,0.2,0.2);
 	glVertex2i(0, 0);
-	glVertex2i(width * SCALE, 0);
-	glVertex2i(width * SCALE, menu_height);
+	glVertex2i(width , 0);
+	glVertex2i(width , menu_height);
 	glVertex2i(0, menu_height);
 
 	glEnd();
@@ -200,8 +202,8 @@ void GameWorld::drawMenu()
 	if (game_lost)
 	{
 		text = "Looooser!!!!! Left click to start new game.";
-		int font_x = (width * SCALE - glutBitmapLength(GLUT_BITMAP_TIMES_ROMAN_24, (const unsigned char*)text.data())) / 2;
-		int font_y = (height * SCALE + 10) / 2;
+		int font_x = (width - glutBitmapLength(GLUT_BITMAP_TIMES_ROMAN_24, (const unsigned char*)text.data())) / 2;
+		int font_y = (height + 10) / 2;
 		glColor3f(1, 1, 1);
 		glRasterPos2f(font_x, font_y);
 		glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24, (const unsigned char*)text.data());
@@ -210,10 +212,11 @@ void GameWorld::drawMenu()
 
 void GameWorld::createNewWave()
 {
+	if (monsters.size() > 0) return;
 	wave_counter++;
 	std::random_device rd;
 	std::mt19937 gen(rd());
-	std::uniform_int_distribution<> dis(menu_height + 2, height - 1);
+	std::uniform_int_distribution<> dis(menu_height * 2, height - 1);
 	int amount = wave_counter;
 	int created = 0;
 	std::cout << "Generate new wave" << std::endl;
@@ -230,7 +233,7 @@ void GameWorld::createNewWave()
 				monster->setPath(p);
 				monsters.push_back(monster);
 				created++;
-				std::cout << "\tMonster was created" << std::endl;
+				std::cout << "\tMonster was created (" << x << "; " << y << ")" << std::endl;
 				if (created == amount) break;
 			}
 			else

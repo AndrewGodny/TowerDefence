@@ -58,7 +58,7 @@ int main(int argc, char **argv)
 	*/
 	int WIDTH = 700;
 	int HEIGHT = 500;
-	world.init(WIDTH / SCALE, HEIGHT / SCALE);
+	world.init(WIDTH, HEIGHT);
 	/*
 	Init OpenGL
 	*/

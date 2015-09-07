@@ -4,7 +4,7 @@
 
 TankMonster::TankMonster(int x, int y): BaseMonster(x, y)
 {
-	hp = 700; speed = 1; size = 5; cost = 300;
+	hp = 600; speed = 1; size = 5; cost = 300;
 }
 
 

@@ -30,7 +30,7 @@ bool BaseMonster::isAlive()
 
 void BaseMonster::setPath(Path p)
 {
-	Point cur, next;
+	/*Point cur, next;
 	for (int i = 0; i < p.size() - 1; i++)
 	{		
 		cur.x = p[i].x * SCALE; cur.y = p[i].y * SCALE;
@@ -45,7 +45,8 @@ void BaseMonster::setPath(Path p)
 			path.push_back(cur);
 		}
 	}
-	path.push_back(next);
+	path.push_back(next);*/
+	path = p;
 }
 
 void BaseMonster::hit(int damage)
